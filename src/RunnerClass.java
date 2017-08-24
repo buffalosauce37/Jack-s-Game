@@ -2,8 +2,8 @@ import javax.swing.JFrame;
 
 public class RunnerClass {
 	JFrame frame = new JFrame();
-	int width = 800;
-	int height = 500;
+	static int width = 800;
+	static int height = 500;
 	GamePanel panel;
 
 	void setup() {
