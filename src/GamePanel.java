@@ -38,6 +38,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == END_STATE) {
 			drawEndState(g);
 		}
+		if (currentState > END_STATE) {
+			currentState = MENU_STATE;
+		}
 
 	}
 
@@ -107,11 +110,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;
 		}
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+
+			player.speedY += -3;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+
+			player.speedY += 3;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+
+			player.speedX += -3;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			player.speedX += 3;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println();
+		player.speedX -= 4;
+		player.speedY -= 4;
 	}
 }

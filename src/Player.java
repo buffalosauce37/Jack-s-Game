@@ -2,6 +2,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Player extends GameObject {
+	double gravity;
+	int speedX;
+	int speedY;
+
 	Player(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
@@ -15,6 +19,9 @@ public class Player extends GameObject {
 	}
 
 	void update() {
+		y+=speedY;
+		x+=speedX;
+		y+=gravity;
 
 	}
 }
