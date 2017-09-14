@@ -6,11 +6,12 @@ public class Player extends GameObject {
 	int speedX;
 	int speedY;
 
-	Player(int x, int y, int width, int height) {
+	Player(int x, int y, int width, int height, double gravity) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.gravity = gravity;
 	}
 
 	void draw(Graphics g) {
@@ -19,9 +20,13 @@ public class Player extends GameObject {
 	}
 
 	void update() {
-		y+=speedY;
-		x+=speedX;
-		y+=gravity;
-
+		y += speedY;
+		x += speedX;
+		speedY += gravity;
+		if (y >= 390) {
+			speedY = 0;
+			y = 390;
+		}
+		
 	}
 }

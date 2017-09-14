@@ -18,12 +18,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font titleFont;
 	Font subtitleFont;
 	Player player;
+	ObjectManager manager;
 
 	GamePanel() {
 		time = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.BOLD, 48);
 		subtitleFont = new Font("Arial", Font.PLAIN, 30);
-		player = new Player(50, 50, 20, 20);
+		player = new Player(50, 50, 20, 20, 1);
+		manager = new ObjectManager(player);
 	}
 
 	void startGame() {
@@ -49,7 +51,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-		player.update();
+		manager.update();
 	}
 
 	void updateEndState() {
@@ -69,7 +71,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, RunnerClass.width, RunnerClass.height);
-		player.draw(g);
+		manager.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
@@ -110,20 +112,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_UP) {
-
-			player.speedY += -3;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-
-			player.speedY += 3;
-		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 
-			player.speedX += -3;
+			player.speedX += -1;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			player.speedX += 3;
+			player.speedX += 1;
+		}
+		if (e.getKeyCode()==KeyEvent.VK_SPACE){
+			player.speedY -= 20;
 		}
 	}
 
@@ -131,7 +128,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println();
-		player.speedX -= 4;
-		player.speedY -= 4;
+		player.speedX = 0;
+		player.speedY = 0;
 	}
 }
