@@ -52,6 +52,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateGameState() {
 		manager.update();
+		manager.manageEnemies();
 	}
 
 	void updateEndState() {
@@ -120,7 +121,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			player.speedX += 1;
 		}
 		if (e.getKeyCode()==KeyEvent.VK_SPACE){
-			player.speedY -= 20;
+			player.speedY -= 15;
 		}
 	}
 
