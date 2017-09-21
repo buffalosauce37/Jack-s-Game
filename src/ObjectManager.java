@@ -4,27 +4,41 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ObjectManager {
+	 int random = new Random().nextInt(4000); 
 	ArrayList<GameObject> objects;
+	ArrayList<Projectile> projectiles;
 	Player player;
+	Projectile projectile;
 	private int score = 0;
 	
 	long enemyTimer = 0;
-	int enemySpawnTime = 1000;
+	int enemySpawnTime = random;
 	
 	public ObjectManager(Player player) {
 		objects = new ArrayList<GameObject>();
+		projectiles = new ArrayList<Projectile>();
 		this.player = player;
 		objects.add(player);
-	}
+		}
 
 	public void addObject(GameObject o) {
 		objects.add(o);
+	}
+	
+	void addProjectile(Projectile projectile){
+		projectiles.add(projectile);
 	}
 
 	public void update() {
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject o = objects.get(i);
 			o.update();
+			
+		}
+		for (int i = 0; i < projectiles.size(); i++) {
+			GameObject p = projectiles.get(i);
+			p.update();
+			
 		}
 		
 		purgeObjects();	
@@ -35,6 +49,10 @@ public class ObjectManager {
 			GameObject o = objects.get(i);
 			o.draw(g);
 		}
+		for (int i = 0; i < projectiles.size(); i++) {
+			GameObject p = projectiles.get(i);
+			p.draw(g);
+		}
 	}
 
 	private void purgeObjects() {
@@ -44,11 +62,11 @@ public class ObjectManager {
 			}
 		}
 	}
-
-
+	
 	public void manageEnemies(){
 		if(System.currentTimeMillis() - enemyTimer >= enemySpawnTime){
 			addObject(new Obsticle(new Random().nextInt(RunnerClass.width), 0, 50, 50));
+			enemySpawnTime = new Random().nextInt(4000);
 			enemyTimer = System.currentTimeMillis();
 		}
 	}

@@ -1,11 +1,12 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class Player extends GameObject {
 	double gravity;
 	int speedX;
 	int speedY;
-
+ int random = new Random().nextInt();
 	Player(int x, int y, int width, int height, double gravity) {
 		this.x = x;
 		this.y = y;

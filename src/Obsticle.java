@@ -4,16 +4,19 @@ import java.awt.Graphics;
 public class Obsticle extends GameObject {
 
 	Obsticle(int x, int y, int width, int height) {
-		this.x = x;
-		this.y = y;
+		this.x = 820;
+		this.y = 390;
 		this.width = width;
 		this.height = height;
 	}
 	void update(){
-		x--;
+		x-= 3;
+		if (x <= -20) {
+	isAlive=false;		
+		}
 	}
 	void draw(Graphics g){
-		g.setColor(Color.BLACK);
-		g.drawRect(700, 200, 20, 20);
+		g.setColor(Color.yellow);
+		g.drawRect(x, y, 20, 20);
 	}
 }

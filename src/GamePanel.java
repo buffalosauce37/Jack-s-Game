@@ -113,15 +113,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-
-			player.speedX += -1;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			player.speedX += 1;
+		if (e.getKeyCode()==KeyEvent.VK_UP){
+			player.speedY -= 15;
 		}
 		if (e.getKeyCode()==KeyEvent.VK_SPACE){
-			player.speedY -= 15;
+			manager.addProjectile(new Projectile(player.x, player.y, 10, 5));
 		}
 	}
 
