@@ -5,6 +5,7 @@ public class Projectile extends GameObject {
 	int speed = 10;
 
 	Projectile(int x, int y, int width, int height) {
+		super(x,y,width,height);
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -17,6 +18,7 @@ public class Projectile extends GameObject {
 	}
 
 	void update() {
+		super.update();
 		x += speed;
 		if (x >= 500) {
 	isAlive=false;		

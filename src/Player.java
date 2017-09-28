@@ -8,6 +8,7 @@ public class Player extends GameObject {
 	int speedY;
  int random = new Random().nextInt();
 	Player(int x, int y, int width, int height, double gravity) {
+		super(x,y,width,height);
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -21,6 +22,7 @@ public class Player extends GameObject {
 	}
 
 	void update() {
+		super.update();
 		y += speedY;
 		x += speedX;
 		speedY += gravity;

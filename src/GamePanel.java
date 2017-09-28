@@ -53,6 +53,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void updateGameState() {
 		manager.update();
 		manager.manageEnemies();
+		manager.checkCollision();
+		if (player.isAlive==false){
+			currentState = END_STATE;
+		}
 	}
 
 	void updateEndState() {
@@ -81,6 +85,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
 		g.drawString("Game Over", 300, 50);
+		g.drawString(Integer.toString(manager.getScore()), 300, 100);
 	}
 
 	@Override
