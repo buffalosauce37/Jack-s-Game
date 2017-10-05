@@ -4,21 +4,23 @@ import java.awt.Graphics;
 public class Obsticle extends GameObject {
 
 	Obsticle(int x, int y, int width, int height) {
-		super(x,y,width,height);
+		super(x, y, width, height);
 		this.x = 820;
 		this.y = 390;
 		this.width = width;
 		this.height = height;
 	}
-	void update(){
-		super.update();
-		x-= 3;
+
+	void update() {
+		x -= 3;
 		if (x <= -20) {
-	isAlive=false;		
+			isAlive = false;
 		}
+		super.update();
 	}
-	void draw(Graphics g){
+
+	void draw(Graphics g) {
 		g.setColor(Color.yellow);
-		g.drawRect(x, y, 20, 20);
+		g.drawRect(x, y, width, height);
 	}
 }

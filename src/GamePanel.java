@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font subtitleFont;
 	Player player;
 	ObjectManager manager;
+	int ammo;
 
 	GamePanel() {
 		time = new Timer(1000 / 60, this);
@@ -26,6 +27,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		subtitleFont = new Font("Arial", Font.PLAIN, 30);
 		player = new Player(50, 50, 20, 20, 1);
 		manager = new ObjectManager(player);
+		ammo = 3;
 	}
 
 	void startGame() {
@@ -54,8 +56,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.update();
 		manager.manageEnemies();
 		manager.checkCollision();
-		if (player.isAlive==false){
+		if(manager.getScore()==1000){
+			ammo+=3;
+		}
+		if (player.isAlive == false) {
 			currentState = END_STATE;
+			player = new Player(50, 50, 20, 20, 1);
 		}
 	}
 
@@ -77,6 +83,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, RunnerClass.width, RunnerClass.height);
 		manager.draw(g);
+		g.setFont(titleFont);
+		g.setColor(Color.WHITE);
+		g.drawString(Integer.toString(manager.getScore()), 10, 50);
+		g.setFont(titleFont);
+		g.setColor(Color.WHITE);
+		g.drawString(Integer.toString(ammo), 750, 50);
 	}
 
 	void drawEndState(Graphics g) {
@@ -118,12 +130,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;
 		}
-		if (e.getKeyCode()==KeyEvent.VK_UP){
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			player.speedY -= 15;
 		}
-		if (e.getKeyCode()==KeyEvent.VK_SPACE){
-			manager.addProjectile(new Projectile(player.x, player.y, 10, 5));
+		if (e.getKeyCode() == KeyEvent.VK_SPACE && ammo>0) {
+			manager.addProjectile(new Projectile(player.x, player.y, 5, 10));
+			ammo--;
 		}
+
 	}
 
 	@Override

@@ -6,17 +6,15 @@ import java.util.Random;
 public class ObjectManager {
 	int random = new Random().nextInt(2000);
 	ArrayList<GameObject> objects;
-	ArrayList<Projectile> projectiles;
 	Player player;
 	Projectile projectile;
 	private int score = 0;
 
 	long enemyTimer = 0;
-	int enemySpawnTime = random+500;
+	int enemySpawnTime = random + 500;
 
 	public ObjectManager(Player player) {
 		objects = new ArrayList<GameObject>();
-		projectiles = new ArrayList<Projectile>();
 		this.player = player;
 		objects.add(player);
 	}
@@ -26,7 +24,7 @@ public class ObjectManager {
 	}
 
 	void addProjectile(Projectile projectile) {
-		projectiles.add(projectile);
+		objects.add(projectile);
 	}
 
 	public void update() {
@@ -35,11 +33,6 @@ public class ObjectManager {
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject o = objects.get(i);
 			o.update();
-
-		}
-		for (int i = 0; i < projectiles.size(); i++) {
-			GameObject p = projectiles.get(i);
-			p.update();
 
 		}
 
@@ -51,10 +44,6 @@ public class ObjectManager {
 			GameObject o = objects.get(i);
 			o.draw(g);
 		}
-		for (int i = 0; i < projectiles.size(); i++) {
-			GameObject p = projectiles.get(i);
-			p.draw(g);
-		}
 	}
 
 	private void purgeObjects() {
@@ -64,11 +53,12 @@ public class ObjectManager {
 			}
 		}
 	}
-
+int OS = 20;
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-			addObject(new Obsticle(new Random().nextInt(RunnerClass.width), 0, 50, 50));
-			enemySpawnTime = new Random().nextInt(2000)+500;
+			addObject(new Obsticle(new Random().nextInt(RunnerClass.width), 0, OS, OS));
+			OS+=10;
+			enemySpawnTime = new Random().nextInt(2000) + 500;
 			enemyTimer = System.currentTimeMillis();
 		}
 	}
@@ -79,24 +69,17 @@ public class ObjectManager {
 				GameObject o1 = objects.get(i);
 				GameObject o2 = objects.get(j);
 				if (o1.collisionbox.intersects(o2.collisionbox)) {
-				if ((o1 instanceof Obsticle && o2 instanceof Player)
-						|| (o2 instanceof Obsticle && o1 instanceof Player)) {
-					o1.isAlive = false;
-					o2.isAlive = false;
-				}
-				}
-			}
-		}
-
-		for (int i = 0; i < objects.size(); i++) {
-			for (int j = i + 1; j < projectiles.size(); j++) {
-				GameObject o1 = objects.get(i);
-				GameObject p2 = projectiles.get(j);
-				if (o1.collisionbox.intersects(p2.collisionbox)) {
-					if ((o1 instanceof Obsticle && p2 instanceof Projectile)
-							|| (p2 instanceof Obsticle && o1 instanceof Projectile)) {
+					if ((o1 instanceof Obsticle && o2 instanceof Player) || (o2 instanceof Obsticle && o1 instanceof Player)) {
 						o1.isAlive = false;
-						p2.isAlive = false;
+						o2.isAlive = false;
+
+					}
+
+					if (o1.collisionbox.intersects(o2.collisionbox)) {
+						if ((o1 instanceof Obsticle && o2 instanceof Projectile) || (o2 instanceof Obsticle && o1 instanceof Projectile)) {
+							o1.isAlive = false;
+							o2.isAlive = false;
+						}
 					}
 				}
 			}

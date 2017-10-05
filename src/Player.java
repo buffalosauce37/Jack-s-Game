@@ -18,11 +18,10 @@ public class Player extends GameObject {
 
 	void draw(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(x, y, 20, 20);
+		g.fillRect(x, y, width, height);
 	}
 
 	void update() {
-		super.update();
 		y += speedY;
 		x += speedX;
 		speedY += gravity;
@@ -30,6 +29,6 @@ public class Player extends GameObject {
 			speedY = 0;
 			y = 390;
 		}
-		
+		super.update();
 	}
 }
