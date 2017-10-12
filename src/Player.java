@@ -9,10 +9,6 @@ public class Player extends GameObject {
  int random = new Random().nextInt();
 	Player(int x, int y, int width, int height, double gravity) {
 		super(x,y,width,height);
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
 		this.gravity = gravity;
 	}
 
@@ -28,6 +24,10 @@ public class Player extends GameObject {
 		if (y >= 390) {
 			speedY = 0;
 			y = 390;
+		}
+		if (y < 0){
+			speedY = 0;
+			y = 0;
 		}
 		super.update();
 	}

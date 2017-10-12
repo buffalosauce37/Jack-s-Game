@@ -6,11 +6,11 @@ import java.util.Random;
 public class ObjectManager {
 	int random = new Random().nextInt(2000);
 	ArrayList<GameObject> objects;
+	long enemyTimer = 0;
 	Player player;
 	Projectile projectile;
 	private int score = 0;
 
-	long enemyTimer = 0;
 	int enemySpawnTime = random + 500;
 
 	public ObjectManager(Player player) {
@@ -53,11 +53,14 @@ public class ObjectManager {
 			}
 		}
 	}
-int OS = 20;
+
+	int OS = 20;
+
 	public void manageEnemies() {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-			addObject(new Obsticle(new Random().nextInt(RunnerClass.width), 0, OS, OS));
-			OS+=10;
+			int SetY = new Random().nextInt(390);
+			addObject(new Obsticle(900, SetY, OS, OS));
+			OS += 10;
 			enemySpawnTime = new Random().nextInt(2000) + 500;
 			enemyTimer = System.currentTimeMillis();
 		}

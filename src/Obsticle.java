@@ -5,8 +5,6 @@ public class Obsticle extends GameObject {
 
 	Obsticle(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		this.x = 820;
-		this.y = 390;
 		this.width = width;
 		this.height = height;
 	}

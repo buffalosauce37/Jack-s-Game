@@ -20,6 +20,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Player player;
 	ObjectManager manager;
 	int ammo;
+	int ammoincrerase = 1000;
 
 	GamePanel() {
 		time = new Timer(1000 / 60, this);
@@ -56,8 +57,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager.update();
 		manager.manageEnemies();
 		manager.checkCollision();
-		if(manager.getScore()==1000){
+		if(manager.getScore()==ammoincrerase){
 			ammo+=3;
+			ammoincrerase+=1000;
 		}
 		if (player.isAlive == false) {
 			currentState = END_STATE;
