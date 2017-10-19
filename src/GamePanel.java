@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -21,11 +24,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ObjectManager manager;
 	int ammo;
 	int ammoincrerase = 1000;
+	public static BufferedImage playerImg;
 
 	GamePanel() {
 		time = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.BOLD, 48);
 		subtitleFont = new Font("Arial", Font.PLAIN, 30);
+		try {
+			playerImg = ImageIO.read(this.getClass().getResourceAsStream("player.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	void startGame() {
@@ -52,7 +62,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 	}
-
 	void updateMenuState() {
 
 	}

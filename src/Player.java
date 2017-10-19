@@ -1,6 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 public class Player extends GameObject {
 	double gravity;
@@ -10,11 +14,11 @@ public class Player extends GameObject {
 	Player(int x, int y, int width, int height, double gravity) {
 		super(x,y,width,height);
 		this.gravity = gravity;
+
 	}
 
 	void draw(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(x, y, width, height);
+		g.drawImage(GamePanel.playerImg, x, y, width, height, null);
 	}
 
 	void update() {
