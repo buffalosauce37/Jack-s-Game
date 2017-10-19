@@ -60,7 +60,7 @@ public class ObjectManager {
 		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
 			int SetY = new Random().nextInt(390);
 			addObject(new Obsticle(900, SetY, OS, OS));
-			OS += 10;
+			OS += 5;
 			enemySpawnTime = new Random().nextInt(2000) + 500;
 			enemyTimer = System.currentTimeMillis();
 		}

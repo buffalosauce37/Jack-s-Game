@@ -26,13 +26,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		time = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.BOLD, 48);
 		subtitleFont = new Font("Arial", Font.PLAIN, 30);
-		player = new Player(50, 50, 20, 20, 1);
-		manager = new ObjectManager(player);
-		ammo = 3;
 	}
 
 	void startGame() {
 		time.start();
+	}
+	
+	void newGame(){
+		player = new Player(100, 50, 20, 20, 1);
+		manager = new ObjectManager(player);
+		ammo = 3;
+		ammoincrerase = 1000;
 	}
 
 	public void paintComponent(Graphics g) {
@@ -128,6 +132,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		System.out.println();
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			currentState++;
+			if (currentState == GAME_STATE){
+				newGame();
+			}
 		}
 		if (currentState > END_STATE) {
 			currentState = MENU_STATE;

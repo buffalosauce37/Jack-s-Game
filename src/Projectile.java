@@ -14,7 +14,7 @@ public class Projectile extends GameObject {
 
 	void draw(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(x, y, 2, 5);
+		g.fillRect(x, y, 5, 5);
 	}
 
 	void update() {
