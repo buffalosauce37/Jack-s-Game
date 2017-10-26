@@ -25,10 +25,12 @@ public class Player extends GameObject {
 		y += speedY;
 		x += speedX;
 		speedY += gravity;
-		if (y >= 390) {
-			speedY = 0;
-			y = 390;
+		if (y >= 500) {
+isAlive = false;
 		}
+		if (y <= 0) {
+			isAlive = false;
+					}
 		if (y < 0){
 			speedY = 0;
 			y = 0;

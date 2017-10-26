@@ -18,7 +18,6 @@ public class Obsticle extends GameObject {
 	}
 
 	void draw(Graphics g) {
-		g.setColor(Color.yellow);
-		g.drawRect(x, y, width, height);
+		g.drawImage(GamePanel.obsticleImg, x, y, width, height, null);
 	}
 }

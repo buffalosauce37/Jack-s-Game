@@ -5,9 +5,9 @@ public class RunnerClass {
 	static int width = 800;
 	static int height = 500;
 	GamePanel panel;
-
-	void setup() {
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   
+	void  setup() {
+		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setSize(width, height);
 		frame.add(panel);

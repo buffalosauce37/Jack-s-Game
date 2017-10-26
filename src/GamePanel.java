@@ -24,6 +24,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ObjectManager manager;
 	int ammo;
 	int ammoincrerase = 1000;
+	public static BufferedImage backgroundImg;
+	public static BufferedImage obsticleImg;
 	public static BufferedImage playerImg;
 
 	GamePanel() {
@@ -32,6 +34,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		subtitleFont = new Font("Arial", Font.PLAIN, 30);
 		try {
 			playerImg = ImageIO.read(this.getClass().getResourceAsStream("player.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			backgroundImg = ImageIO.read(this.getClass().getResourceAsStream("background.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			obsticleImg = ImageIO.read(this.getClass().getResourceAsStream("airplane-12.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -92,11 +106,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Press enter to start", 10, 50);
 		g.setFont(subtitleFont);
 		g.drawString("Up arrow to jump", 10, 200);
+		g.setFont(subtitleFont);
+		g.drawString("Press space to shoot", 10, 250);
 	}
 
 	void drawGameState(Graphics g) {
-		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, RunnerClass.width, RunnerClass.height);
+		g.drawImage(GamePanel.backgroundImg, 0, 0, 800, 500, null);
 		manager.draw(g);
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
