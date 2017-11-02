@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage backgroundImg;
 	public static BufferedImage obsticleImg;
 	public static BufferedImage playerImg;
+	boolean pause = false;
 
 	GamePanel() {
 		time = new Timer(1000 / 60, this);
@@ -57,10 +58,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	void newGame(){
-		player = new Player(100, 50, 20, 20, 1);
+		player = new Player(100, 100, 20, 20, 1);
 		manager = new ObjectManager(player);
 		ammo = 3;
 		ammoincrerase = 1000;
+		pause = true;
+
 	}
 
 	public void paintComponent(Graphics g) {
@@ -81,16 +84,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-		manager.update();
-		manager.manageEnemies();
-		manager.checkCollision();
-		if(manager.getScore()==ammoincrerase){
-			ammo+=3;
-			ammoincrerase+=1000;
+		
+		if (pause == true){
+
 		}
-		if (player.isAlive == false) {
-			currentState = END_STATE;
-			player = new Player(50, 50, 20, 20, 1);
+		else {
+			manager.update();
+			manager.manageEnemies();
+			manager.checkCollision();
+			if(manager.getScore()==ammoincrerase){
+				ammo+=3;
+				ammoincrerase+=1000;
+			}
+			if (player.isAlive == false) {
+				currentState = END_STATE;
+				player = new Player(100, 100, 20, 20, 1);
+			}
 		}
 	}
 
@@ -101,13 +110,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, RunnerClass.width, RunnerClass.height);
-		g.setFont(titleFont);
+		g.setFont(subtitleFont);
 		g.setColor(Color.WHITE);
-		g.drawString("Press enter to start", 10, 50);
+		g.drawString("Press enter to start", 10, 300);
+		g.setFont(titleFont);
+		g.drawString("Dinosaur Dodge", 10, 50);
 		g.setFont(subtitleFont);
-		g.drawString("Up arrow to jump", 10, 200);
+		g.drawString("Up arrow to jump and to unfreeze game", 10, 200);
 		g.setFont(subtitleFont);
-		g.drawString("Press space to shoot", 10, 250);
+		g.drawString("Space to shoot", 10, 250);
+		g.setFont(subtitleFont);
+		g.drawString("Touching the top or bottom of the screen kills you", 10, 150);
+		g.setFont(subtitleFont);
+		g.drawString("Airplanes kill you", 10, 100);
 	}
 
 	void drawGameState(Graphics g) {
@@ -165,6 +180,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			player.speedY -= 15;
+			pause = false;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE && ammo>0) {
 			manager.addProjectile(new Projectile(player.x, player.y, 5, 10));
