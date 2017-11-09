@@ -27,7 +27,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static BufferedImage backgroundImg;
 	public static BufferedImage obsticleImg;
 	public static BufferedImage playerImg;
+	public static BufferedImage projectileImg;
 	boolean pause = false;
+	int backgroundSpeed = 2;
+	int backgroundX = 0;
 
 	GamePanel() {
 		time = new Timer(1000 / 60, this);
@@ -46,6 +49,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			e.printStackTrace();
 		}
 		try {
+			projectileImg = ImageIO.read(this.getClass().getResourceAsStream("Fire.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
 			obsticleImg = ImageIO.read(this.getClass().getResourceAsStream("airplane-12.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -58,12 +67,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	void newGame(){
-		player = new Player(100, 100, 20, 20, 1);
+		player = new Player(100, 150, 20, 20, 1);
 		manager = new ObjectManager(player);
 		ammo = 3;
 		ammoincrerase = 1000;
 		pause = true;
-
+		
 	}
 
 	public void paintComponent(Graphics g) {
@@ -92,14 +101,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			manager.update();
 			manager.manageEnemies();
 			manager.checkCollision();
+			backgroundX -= backgroundSpeed;
 			if(manager.getScore()==ammoincrerase){
 				ammo+=3;
 				ammoincrerase+=1000;
 			}
 			if (player.isAlive == false) {
 				currentState = END_STATE;
-				player = new Player(100, 100, 20, 20, 1);
+				player = new Player(100, 150, 20, 20, 1);
 			}
+		}
+		if (backgroundX <= -800){
+			backgroundX = 0;
 		}
 	}
 
@@ -126,7 +139,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
-		g.drawImage(GamePanel.backgroundImg, 0, 0, 800, 500, null);
+		g.drawImage(GamePanel.backgroundImg, backgroundX, 0, 800, 500, null);
+		g.drawImage(GamePanel.backgroundImg, backgroundX+800, 0, 800, 500, null);
 		manager.draw(g);
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);

@@ -13,14 +13,13 @@ public class Projectile extends GameObject {
 	}
 
 	void draw(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(x, y, 5, 5);
+		g.drawImage(GamePanel.projectileImg, x, y, width, height, null);
 	}
 
 	void update() {
 		super.update();
 		x += speed;
-		if (x >= 500) {
+		if (x >= 800) {
 	isAlive=false;		
 		}
 	}
