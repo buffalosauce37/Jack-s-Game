@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	ObjectManager manager;
 	int ammo;
 	int ammoincrerase = 1000;
+	public static BufferedImage backgroundImg2;
 	public static BufferedImage backgroundImg;
 	public static BufferedImage obsticleImg;
 	public static BufferedImage playerImg;
@@ -31,6 +32,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	boolean pause = false;
 	int backgroundSpeed = 2;
 	int backgroundX = 0;
+	int backgroundX2 = 0;
 
 	GamePanel() {
 		time = new Timer(1000 / 60, this);
@@ -44,6 +46,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		try {
 			backgroundImg = ImageIO.read(this.getClass().getResourceAsStream("background.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			backgroundImg2 = ImageIO.read(this.getClass().getResourceAsStream("background2.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,6 +110,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			manager.manageEnemies();
 			manager.checkCollision();
 			backgroundX -= backgroundSpeed;
+			backgroundX2 -= backgroundSpeed*.5;
 			if(manager.getScore()==ammoincrerase){
 				ammo+=3;
 				ammoincrerase+=1000;
@@ -113,6 +122,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (backgroundX <= -800){
 			backgroundX = 0;
+		}
+		if (backgroundX2 <= -800){
+			backgroundX2 = 0;
 		}
 	}
 
@@ -139,14 +151,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
+		g.drawImage(GamePanel.backgroundImg2, backgroundX2, 0, 800, 500, null);
+		g.drawImage(GamePanel.backgroundImg2, backgroundX2 + 800, 0, 800, 500, null); 
 		g.drawImage(GamePanel.backgroundImg, backgroundX, 0, 800, 500, null);
-		g.drawImage(GamePanel.backgroundImg, backgroundX+800, 0, 800, 500, null);
+		g.drawImage(GamePanel.backgroundImg, backgroundX + 800, 0, 800, 500, null);
 		manager.draw(g);
 		g.setFont(titleFont);
-		g.setColor(Color.WHITE);
+		g.setColor(Color.GRAY);
 		g.drawString(Integer.toString(manager.getScore()), 10, 50);
 		g.setFont(titleFont);
-		g.setColor(Color.WHITE);
+		g.setColor(Color.GRAY);
 		g.drawString(Integer.toString(ammo), 750, 50);
 	}
 
@@ -197,7 +211,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			pause = false;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE && ammo>0) {
-			manager.addProjectile(new Projectile(player.x, player.y, 5, 10));
+			manager.addProjectile(new Projectile(player.x, player.y, 10, 10));
 			ammo--;
 		}
 
