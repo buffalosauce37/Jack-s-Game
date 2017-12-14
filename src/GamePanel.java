@@ -170,7 +170,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.setColor(Color.WHITE);
 		g.drawString("Game Over", 300, 50);
-		g.drawString(Integer.toString(manager.getScore()), 300, 100);
+		g.drawString("Your score is "+Integer.toString(manager.getScore()), 250, 100);
 	}
 
 	@Override
@@ -198,14 +198,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		System.out.println();
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			currentState++;
-			if (currentState == GAME_STATE){
+			if(currentState == MENU_STATE){
+				currentState= GAME_STATE;
 				newGame();
 			}
-		}
-		if (currentState > END_STATE) {
-			currentState = MENU_STATE;
-		}
+			if(currentState == END_STATE){
+				currentState= MENU_STATE;
+			}
+			}
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			player.speedY -= 15;
 			pause = false;
